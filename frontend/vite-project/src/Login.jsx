@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'; 
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); 
     try {
       const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
@@ -35,7 +36,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -55,7 +56,7 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

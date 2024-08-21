@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; 
+import './Predict.css'; 
 
 function Predict() {
   const [inputData, setInputData] = useState({
@@ -77,10 +78,10 @@ function Predict() {
   };
 
   return (
-    <div>
+    <div className="predict-container">
       <h2>Predict</h2>
       {Object.entries(inputData).map(([key, value]) => (
-        <div key={key}>
+        <div key={key} className="input-group">
           <label>
             {key}
             <input
@@ -90,14 +91,13 @@ function Predict() {
               onChange={(e) => handleChange(key, e.target.value)}
             />
           </label>
-          <br />
         </div>
       ))}
       
       <button onClick={handlePredict}>Make Prediction</button>
       
-      { (prediction!==-1) && <h1>Prediction: {prediction}</h1>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {prediction !== -1 && <h1 className="prediction">Prediction: {prediction}</h1>}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

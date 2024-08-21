@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Register.css'; 
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -36,7 +37,7 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
         <input
@@ -56,8 +57,8 @@ function Register() {
         <button type="submit">Register</button>
       </form>
 
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p className="success-message">{success}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }
