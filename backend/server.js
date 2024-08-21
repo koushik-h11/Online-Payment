@@ -1,4 +1,3 @@
-// server.js
 require('dotenv').config();
 const express = require("express");
 const cors = require('cors');
@@ -55,6 +54,7 @@ app.post('/register', async (req, res) => {
   
   app.post('/login', async (req, res) => {
     try {
+      console.log(req.body);
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
         return res.status(400).json({ error: 'User not found', register: true });
@@ -73,7 +73,15 @@ app.post('/register', async (req, res) => {
 
 app.post("/predict", authenticateToken, async (req, res) => {
   try {
-    const flaskResponse = await axios.post('http://127.0.0.1:5000/predict', req.body);
+    console.log(req.body);
+    let input=req.body.inputData;
+    let sendingRes={};
+    Object.entries(input).map(([key,value])=>{
+        if(key!=='type')sendingRes[key]=Number(value);
+        else sendingRes[key]=value;
+    })
+    console.log(sendingRes);
+    const flaskResponse = await axios.post('http://127.0.0.1:5000/predict', sendingRes);
     res.json(flaskResponse.data);
   } catch (error) {
     res.status(500).send('Error making prediction');
